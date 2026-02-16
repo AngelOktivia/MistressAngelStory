@@ -1,0 +1,121 @@
+---
+user_name: "Nama Website Anda"
+user_bio: "Tulis biografi singkat Anda di sini lewat CloudCannon."
+main_cover: "https://via.placeholder.com/1000x500/333/fff?text=Klik+untuk+Ganti+Sampul"
+stories:
+  - title: "Judul Cerita Contoh"
+    image: "https://via.placeholder.com/300x300/444/fff?text=Foto+Cerita"
+    desc: "Tulis sinopsis cerita Anda di sini."
+    full_story: "Tulis seluruh isi cerita Anda di sini..."
+---
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.user_name }}</title>
+    <style>
+        :root { --bg: #121212; --text: #FFFFFF; --red: #AF1D20; --card: #1e1e1e; }
+        body { background: var(--bg); color: var(--text); margin: 0; font-family: sans-serif; }
+        
+        .admin-header { background: #000; padding: 15px; text-align: center; border-bottom: 1px solid var(--red); position: sticky; top: 0; z-index: 1000; }
+        .header-title { color: var(--red); font-weight: bold; letter-spacing: 2px; text-transform: uppercase; margin: 0; font-size: 14px; }
+        
+        .cover-box { width: 100%; height: 250px; background: #333; position: relative; }
+        .cover-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .profile-info { padding: 20px; border-bottom: 1px solid #333; }
+        h1 { margin: 0; font-size: 24px; }
+        .bio { color: #aaa; margin-top: 5px; font-size: 14px; }
+
+        .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .story-item { background: var(--card); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s; }
+        .story-item:active { transform: scale(0.95); }
+        .story-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+        .story-title { padding: 10px; font-size: 13px; text-align: left; font-weight: bold; }
+
+        #page-detail, #page-read { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; overflow-y: auto; padding: 20px; box-sizing: border-box; }
+        .detail-top { display: flex; gap: 15px; }
+        .detail-thumb { width: 110px; height: 150px; object-fit: cover; border-radius: 5px; }
+        .btn-read { background: var(--red); color: white; display: block; text-align: center; padding: 12px; text-decoration: none; border-radius: 4px; font-weight: bold; margin-top: 10px; }
+        .line { height: 2px; background: var(--red); margin: 20px 0; opacity: 0.5; }
+        .read-content { line-height: 1.8; font-size: 17px; color: #ccc; white-space: pre-wrap; padding-bottom: 40px; }
+        .btn-back { background: none; color: white; border: none; padding: 10px 0; cursor: pointer; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-header">
+        <p class="header-title">{{ page.user_name }} Official</p>
+    </div>
+
+    <div id="page-home">
+        <div class="cover-box">
+            <img src="{{ page.main_cover }}">
+        </div>
+
+        <div class="profile-info">
+            <h1>{{ page.user_name }}</h1>
+            <p class="bio">{{ page.user_bio }}</p>
+        </div>
+
+        <div class="story-grid">
+            {% for story in page.stories %}
+            <div class="story-item" onclick="openDetail('{{ story.title | escape }}', '{{ story.image }}', '{{ story.desc | escape }}', '{{ story.full_story | escape }}')">
+                <img src="{{ story.image }}">
+                <div class="story-title">{{ story.title }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="padding: 40px; text-align: center; color: #444; font-size: 12px;">
+            &copy; 2026 {{ page.user_name }}
+        </div>
+    </div>
+
+    <div id="page-detail">
+        <button class="btn-back" onclick="closeP('page-detail')">← Kembali</button>
+        <div class="detail-top">
+            <img src="" id="det-img" class="detail-thumb">
+            <div class="detail-meta">
+                <h2 id="det-title">Judul</h2>
+                <a href="javascript:void(0)" class="btn-read" onclick="openRead()">BACA SEKARANG</a>
+            </div>
+        </div>
+        <div class="line"></div>
+        <h4 style="color:var(--red)">Sinopsis</h4>
+        <p id="det-desc"></p>
+    </div>
+
+    <div id="page-read">
+        <button class="btn-back" onclick="closeP('page-read')">← Tutup</button>
+        <h2 id="read-title" style="border-bottom: 1px solid var(--red); padding-bottom: 10px;">Judul</h2>
+        <div class="read-content" id="read-body"></div>
+    </div>
+
+    <script>
+        let currentFullStory = "";
+
+        function openDetail(t, img, d, full) {
+            document.getElementById('det-title').innerText = t;
+            document.getElementById('det-img').src = img;
+            document.getElementById('det-desc').innerText = d;
+            currentFullStory = decodeURIComponent(full); 
+            document.getElementById('page-detail').style.display = 'block';
+        }
+
+        function openRead() {
+            document.getElementById('read-title').innerText = document.getElementById('det-title').innerText;
+            document.getElementById('read-body').innerText = currentFullStory;
+            document.getElementById('page-read').style.display = 'block';
+        }
+
+        function closeP(id) { document.getElementById(id).style.display = 'none'; }
+        
+        // Fungsi pembantu untuk handle teks dari CloudCannon agar tidak error
+        function decodeURIComponent(str) {
+            return str.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+        }
+    </script>
+</body>
+</html>
