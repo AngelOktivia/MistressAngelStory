@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mistress Angel Story</title>
+    <style>
+        :root { --bg: #121212; --text: #FFFFFF; --red: #AF1D20; --card: #1e1e1e; }
+        body { background: var(--bg); color: var(--text); margin: 0; font-family: sans-serif; }
+        
+        /* HEADER & TOMBOL EDIT */
+        .admin-header { background: #000; padding: 10px; display: flex; justify-content: space-between; border-bottom: 1px solid var(--red); position: sticky; top: 0; z-index: 1000; }
+        .cover-box { width: 100%; height: 250px; background: #333; position: relative; }
+        .cover-box img { width: 100%; height: 100%; object-fit: cover; }
+        .edit-overlay { position: absolute; bottom: 10px; right: 10px; background: var(--red); padding: 5px 10px; font-size: 12px; border-radius: 4px; }
+
+        .profile-info { padding: 20px; border-bottom: 1px solid #333; }
+        [contenteditable="true"]:focus { outline: 1px dashed var(--red); background: #222; }
+
+        /* GRID CERITA - INI YANG MEMBUAT KE BAWAH */
+        .story-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; /* Membagi 2 kolom */
+            gap: 15px; 
+            padding: 15px; 
+        }
+        
+        .story-item { background: var(--card); border-radius: 8px; overflow: hidden; cursor: pointer; }
+        .story-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+        .story-title { padding: 10px; font-size: 13px; text-align: left; font-weight: bold; }
+
+        /* HALAMAN DESKRIPSI & BACA */
+        #page-detail, #page-read { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 2000; overflow-y: auto; padding: 20px; box-sizing: border-box; }
+        .detail-top { display: flex; gap: 15px; }
+        .detail-thumb { width: 110px; height: 150px; object-fit: cover; border-radius: 5px; }
+        .btn-read { background: var(--red); color: white; display: block; text-align: center; padding: 12px; text-decoration: none; border-radius: 4px; font-weight: bold; margin-top: 10px; }
+        .line { height: 2px; background: var(--red); margin: 20px 0; opacity: 0.5; }
+        .read-content { line-height: 1.8; font-size: 17px; color: #ccc; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-header">
+        <small>Owner Mode</small>
+        <button onclick="alert('Tersimpan!')" style="background:var(--red); color:white; border:none; padding:5px 10px;">Simpan</button>
+    </div>
+
+    <div id="page-home">
+        <div class="cover-box">
+            <img id="main-cover" src="https://via.placeholder.com/500x250/333/fff?text=Foto+Sampul">
+            <div class="edit-overlay" onclick="document.getElementById('input-cover').click()">Ganti Sampul</div>
+            <input type="file" id="input-cover" hidden onchange="changeImg(this, 'main-cover')">
+        </div>
+
+        <div class="profile-info">
+            <h1 contenteditable="true" id="user-name">Mistress Angel Story</h1>
+            <p contenteditable="true" id="user-bio">Mistress Angel adalah wanita...</p>
+        </div>
+
+        <div class="story-grid" id="main-grid">
+            
+            <div class="story-item" onclick="openDetail('Maaf Life Rusak', 'https://via.placeholder.com/300', 'Ini deskripsi cerita pertama...')">
+                <img src="https://via.placeholder.com/300">
+                <div class="story-title">Maaf Life Rusak</div>
+            </div>
+
+            <div class="story-item" onclick="openDetail('Habis Memakai Air Mohon Mati', 'https://via.placeholder.com/300', 'Ini deskripsi cerita kedua...')">
+                <img src="https://via.placeholder.com/300">
+                <div class="story-title">Habis Memakai Air Mohon Mati</div>
+            </div>
+
+            <div class="story-item" onclick="openDetail('Cerita Ketiga', 'https://via.placeholder.com/300', 'Ini deskripsi cerita ketiga...')">
+                <img src="https://via.placeholder.com/300">
+                <div class="story-title">Judul Cerita Ketiga</div>
+            </div>
+
+            <div class="story-item" onclick="openDetail('Cerita Keempat', 'https://via.placeholder.com/300', 'Ini deskripsi cerita keempat...')">
+                <img src="https://via.placeholder.com/300">
+                <div class="story-title">Judul Cerita Keempat</div>
+            </div>
+
+        </div>
+        
+        <div style="padding: 20px; text-align: center;">
+            <button onclick="addStory()" style="background:none; border: 1px dashed #666; color: #666; width: 100%; padding: 15px;">+ Tambah Cerita Baru</button>
+        </div>
+    </div>
+
+    <div id="page-detail">
+        <button onclick="closeP('page-detail')" style="background:none; color:white; border:none; padding:10px 0;">← Kembali</button>
+        <div class="detail-top">
+            <img src="" id="det-img" class="detail-thumb">
+            <div class="detail-meta">
+                <h2 id="det-title" style="margin:0">Judul</h2>
+                <div style="font-size:12px; color:#888; margin:10px 0;">👁️ 1.2k • 💬 48 Komen</div>
+                <a href="javascript:void(0)" class="btn-read" onclick="openRead()">BACA CERITA</a>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="synopsis">
+            <h4 style="margin:0 0 10px 0">Deskripsi:</h4>
+            <p id="det-desc" contenteditable="true">Edit deskripsi di sini...</p>
+        </div>
+    </div>
+
+    <div id="page-read">
+        <button onclick="closeP('page-read')" style="background:none; color:white; border:none; padding:10px 0;">← Tutup</button>
+        <h2 id="read-title" style="border-bottom: 1px solid var(--red); padding-bottom: 10px;">Judul</h2>
+        <div class="read-content" contenteditable="true">Tulis ceritamu di sini... (Scroll ke bawah terus)</div>
+    </div>
+
+    <script>
+        function openDetail(t, img, d) {
+            document.getElementById('det-title').innerText = t;
+            document.getElementById('det-img').src = img;
+            document.getElementById('det-desc').innerText = d;
+            document.getElementById('page-detail').style.display = 'block';
+        }
+        function openRead() {
+            document.getElementById('read-title').innerText = document.getElementById('det-title').innerText;
+            document.getElementById('page-read').style.display = 'block';
+        }
+        function closeP(id) { document.getElementById(id).style.display = 'none'; }
+        
+        function changeImg(input, id) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) { document.getElementById(id).src = e.target.result; }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function addStory() {
+            const grid = document.getElementById('main-grid');
+            const newStory = `
+                <div class="story-item" onclick="openDetail('Judul Baru', 'https://via.placeholder.com/300', 'Deskripsi baru...')">
+                    <img src="https://via.placeholder.com/300">
+                    <div class="story-title">Judul Baru</div>
+                </div>`;
+            grid.innerHTML += newStory;
+        }
+    </script>
+</body>
+</html>
