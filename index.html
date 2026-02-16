@@ -1,16 +1,16 @@
 ---
-user_name: "Mistress Angel Story"
-user_bio: "Mistress Angel adalah wanita..."
-main_cover: "https://via.placeholder.com/500x250/333/fff?text=Foto+Sampul"
+user_name: Mistress Angel Story
+user_bio:
+main_cover: https://via.placeholder.com/500x250/333/fff?text=Foto+Sampul
 stories:
-  - title: "Maaf Life Rusak"
-    image: "https://via.placeholder.com/300"
-    desc: "Ini deskripsi cerita pertama..."
-    full_story: "Tulis isi cerita pertama kamu di sini..."
-  - title: "Habis Memakai Air Mohon Mati"
-    image: "https://via.placeholder.com/300"
-    desc: "Ini deskripsi cerita kedua..."
-    full_story: "Tulis isi cerita kedua kamu di sini..."
+  - title: Maaf Life Rusak
+    image: https://via.placeholder.com/300
+    desc: Ini deskripsi cerita pertama...
+    full_story: Tulis isi cerita pertama kamu di sini...
+  - title: Habis Memakai Air Mohon Mati
+    image: https://via.placeholder.com/300
+    desc: Ini deskripsi cerita kedua...
+    full_story: Tulis isi cerita kedua kamu di sini...
 _inputs:
   main_cover:
     type: image
@@ -28,8 +28,8 @@ _inputs:
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ page.user_name }}</title>
     <style>
         :root { --bg: #121212; --text: #FFFFFF; --red: #AF1D20; --card: #1e1e1e; }
@@ -69,7 +69,7 @@ _inputs:
 
     <div id="page-home">
         <div class="cover-box">
-            <img src="{{ page.main_cover }}">
+            <img src="{{ page.main_cover }}" />
         </div>
 
         <div class="profile-info">
@@ -80,7 +80,7 @@ _inputs:
         <div class="story-grid">
             {% for story in page.stories %}
             <div class="story-item" onclick="openDetail('{{ story.title | escape }}', '{{ story.image }}', '{{ story.desc | escape }}', '{{ story.full_story | escape }}')">
-                <img src="{{ story.image }}">
+                <img src="{{ story.image }}" />
                 <div class="story-title">{{ story.title }}</div>
             </div>
             {% endfor %}
@@ -90,7 +90,7 @@ _inputs:
     <div id="page-detail">
         <button onclick="closeP('page-detail')" style="background:none; color:white; border:none; padding:10px 0; cursor:pointer;">← Kembali</button>
         <div class="detail-top">
-            <img src="" id="det-img" class="detail-thumb">
+            <img src="" id="det-img" class="detail-thumb" />
             <div style="flex:1">
                 <h2 id="det-title" style="margin:0; font-size: 20px;"></h2>
                 <button class="btn-read" onclick="openRead()">BACA CERITA</button>
