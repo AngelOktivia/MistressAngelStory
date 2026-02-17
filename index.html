@@ -374,7 +374,6 @@ _inputs:
             type: textarea
           full_story:
             type: textarea
----
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -410,6 +409,23 @@ _inputs:
         
         #page-detail, #page-read { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; overflow-y: auto; }
         .btn-read { background: var(--red); color: white; display: block; text-align: center; padding: 16px; border-radius: 8px; font-weight: bold; margin: 25px 0; border: none; width: 100%; cursor: pointer; }
+
+        /* GAYA TOMBOL TUTUP MELAYANG DI KANAN BAWAH */
+        .btn-close-floating {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--red);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 3000;
+            cursor: pointer;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -438,10 +454,10 @@ _inputs:
     </div>
     <div id="page-read">
         <div class="container">
-            <button onclick="closeP('page-read')" style="color:#888; background:none; border:none; padding:10px 0;">← Tutup</button>
-            <h2 id="read-title" style="border-bottom: 1px solid var(--red); padding-bottom:10px; font-size: 22px;"></h2>
+            <h2 id="read-title" style="border-bottom: 1px solid var(--red); padding-bottom:10px; font-size: 22px; margin-top: 20px;"></h2>
             <div id="read-content" class="read-content"></div>
-            <div style="height: 100px;"></div>
+            <div style="height: 120px;"></div>
+            <button class="btn-close-floating" onclick="closeP('page-read')">✕ TUTUP</button>
         </div>
     </div>
     <script>
