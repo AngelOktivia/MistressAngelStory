@@ -1,17 +1,43 @@
 ---
 user_name: Mistress Angel Story
-user_bio: 'Mistress '
+user_bio: |-
+  Mistress
 main_cover: uploads/ma.jpg
 stories:
   - title: DOMINATRIX MISTRESS ANGEL
     image: uploads/dominatrix.jpg
-    desc:
-    full_story:
+    desc: |-
+      Tulis deskripsi di sini...
+    full_story: |-
+      Gw menyetir mobil sambil membawa sebotol air kencing, untuk menemui seorang pria yang akan menjadi budak gw.
+
+Sesampainya di tempat tujuan, gw turun dari mobil dan duduk di kursi trotoar jalan. Tak lama, seorang pria menghampiri gw.
+
+Slave:
+Kak Angel ya?
+
+Mistress Angel:
+Iya, lo yang mau jadi budak gw?
+
+Slave:
+Iya kak
+
+Gw mengambil botol yang berisi air kencing di dalam mobil, lalu menyodorkannya ke dia.
+
+Mistress Angel:
+Nih minum, abisin sekarang juga
+
+Slave:
+Apa ini kak?
+
+Plaakk..
+(Gw menampar mukanya keras, membuatnya tersentak)
+
+Mistress Angel:
+Panggil gw Mistress Angel, budak rendah! Ngerti? Ulangi sekarang
 _inputs:
   main_cover:
     type: image
-  user_bio:
-    type: textarea
   stories:
     type: array
     options:
@@ -20,16 +46,12 @@ _inputs:
         _inputs:
           image:
             type: image
-          desc:
-            type: textarea
-          full_story:
-            type: textarea
 ---
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.user_name }}</title>
     <style>
         :root { --bg: #000000; --text: #e0e0e0; --red: #AF1D20; --card: #161616; }
@@ -38,31 +60,36 @@ _inputs:
         .admin-header { background: #000; padding: 15px; text-align: center; border-bottom: 1px solid var(--red); position: sticky; top: 0; z-index: 1000; }
         .header-title { color: var(--red); font-weight: bold; letter-spacing: 2px; font-size: 14px; margin: 0; }
 
-        .container { max-width: 600px; margin: 0 auto; padding: 25px; }
+        /* WADAH UTAMA BIAR TEKS GAK NABRAK PINGGIR */
+        .container { max-width: 600px; margin: 0 auto; padding: 20px 25px; box-sizing: border-box; }
         
-        /* UKURAN TEKS SESUAI DESKRIPSI (TIDAK KEBESARAN) */
+        /* GAYA BACA PERSIS WATTPAD (UKURAN 15PX) */
         .read-content { 
-            line-height: 2.0;    /* Spasi antar baris tetap lega */
-            font-size: 16px;      /* Ukuran sama dengan teks deskripsi sebelumnya */
+            line-height: 2.2; 
+            font-size: 15px; 
             color: #d1d1d1; 
             white-space: pre-wrap; 
             text-align: left;
-            word-wrap: break-word; /* Memastikan teks tidak meluber ke kanan */
+            word-wrap: break-word;
+            margin-top: 20px;
         }
 
         .cover-box { width: 100%; aspect-ratio: 1/1; background: #333; overflow: hidden; }
         .cover-box img { width: 100%; height: 100%; object-fit: cover; }
         .profile-info { padding: 25px; border-bottom: 1px solid #222; }
-        .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-        .story-item { background: var(--card); border-radius: 8px; overflow: hidden; border: 1px solid #222; }
-        .story-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+        
+        .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
+        .story-item { background: var(--card); border-radius: 8px; overflow: hidden; border: 1px solid #222; cursor: pointer; }
+        .story-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
         
         #page-detail, #page-read { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; overflow-y: auto; }
-        .btn-read { background: var(--red); color: white; display: block; text-align: center; padding: 16px; border-radius: 8px; font-weight: bold; margin: 25px 0; border: none; width: 100%; cursor: pointer; }
+        .btn-read { background: var(--red); color: white; display: block; text-align: center; padding: 15px; border-radius: 6px; font-weight: bold; margin: 20px 0; border: none; width: 100%; cursor: pointer; }
+        .line { height: 1px; background: #222; margin: 20px 0; }
     </style>
 </head>
 <body>
     <div class="admin-header"><p class="header-title">MISTRESS ANGEL STORY</p></div>
+    
     <div id="page-home">
         <div class="cover-box"><img src="{{ page.main_cover }}" /></div>
         <div class="profile-info"><h1>{{ page.user_name }}</h1><p>{{ page.user_bio }}</p></div>
@@ -74,24 +101,28 @@ _inputs:
             {% endfor %}
         </div>
     </div>
+
     <div id="page-detail">
         <div class="container">
-            <button onclick="closeP('page-detail')" style="color:#888; background:none; border:none; padding:10px 0;">← Kembali</button>
+            <button onclick="closeP('page-detail')" style="color:#888; background:none; border:none; padding:10px 0; cursor:pointer;">← Kembali</button>
             <div style="text-align:center;">
-                <img src="" id="det-img" style="width:180px; aspect-ratio:1/1; object-fit:cover; border-radius:12px;" />
-                <h2 id="det-title" style="margin-top:20px;"></h2>
+                <img src="" id="det-img" style="width:180px; aspect-ratio:1/1; object-fit:cover; border-radius:10px;" />
+                <h2 id="det-title" style="margin-top:15px; font-size: 22px;"></h2>
                 <button class="btn-read" onclick="openRead()">BACA SEKARANG</button>
             </div>
-            <div id="det-desc" style="white-space:pre-wrap; color:#aaa; font-size:16px; line-height:1.8;"></div>
+            <div class="line"></div>
+            <div id="det-desc" style="white-space:pre-wrap; color:#aaa; font-size:15px; line-height:1.8;"></div>
         </div>
     </div>
+
     <div id="page-read">
         <div class="container">
-            <button onclick="closeP('page-read')" style="color:#888; background:none; border:none; padding:10px 0;">← Tutup</button>
-            <h2 id="read-title" style="border-bottom: 1px solid var(--red); padding-bottom:10px;"></h2>
+            <button onclick="closeP('page-read')" style="color:#888; background:none; border:none; padding:10px 0; cursor:pointer;">← Tutup</button>
+            <h2 id="read-title" style="border-bottom: 1px solid var(--red); padding-bottom:10px; font-size: 22px;"></h2>
             <div id="read-content" class="read-content"></div>
         </div>
     </div>
+
     <script>
         let currentFullStory = "";
         function openDetail(title, img, desc, full) {
