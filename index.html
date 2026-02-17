@@ -5,10 +5,8 @@ main_cover: uploads/ma.jpg
 stories:
   - title: DOMINATRIX MISTRESS ANGEL
     image: uploads/dominatrix.jpg
-    desc: |-
-      Tulis deskripsi di sini...
-    full_story: |-
-      Tulis cerita di sini...
+    desc: Tulis deskripsi di sini...
+    full_story:
 _inputs:
   main_cover:
     type: image
@@ -25,14 +23,17 @@ _inputs:
           desc:
             type: textarea
           full_story:
-            # INI KUNCI AGAR TOMBOL 'MASUK' BERUBAH JADI 'ENTER'
             type: textarea
+            options:
+              rows: 10
+              input_type: text
+
 ---
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ page.user_name }}</title>
     <style>
         :root { --bg: #000000; --text: #e0e0e0; --red: #AF1D20; --card: #161616; }
