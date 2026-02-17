@@ -1,24 +1,14 @@
 ---
-user_name: Mistress Angel
-user_bio: >-
-  Dominan yang kejam dan sadis. Tak pernah ragu memperlakukan budaknya sesuka
-  hati tanpa rasa kasihan, apa pun situasinya.
+user_name: Mistress Angel Story
+user_bio: 'Mistress '
 main_cover: uploads/ma.jpg
 stories:
   - title: DOMINATRIX MISTRESS ANGEL
     image: uploads/dominatrix.jpg
-    desc: Tulis deskripsi di sini...
-    full_story: >-
-      Gw menyetir mobil sambil membawa sebotol air kencing, untuk menemui
-      seorang pria yang akan menjadi budak gw.<br>Sesampainya di tempat tujuan,
-      gw turun dari mobil dan duduk di kursi trotoar jalan. Tak lama, seorang
-      pria menghampiri gw.<br>Slave: Kak Angel ya?<br>Mistress Angel: Iya, lo
-      yang mau jadi budak gw?<br>Slave: Iya kak<br>Gw mengambil botol yang
-      berisi air kencing di dalam mobil, lalu menyodorkannya ke dia.<br>Mistress
-      Angel: Nih minum, abisin sekarang juga<br>Slave: Apa ini
-      kak?<br>Plaakk..<br> (Gw menampar mukanya keras, membuatnya
-      tersentak)<br>Mistress Angel: Panggil gw Mistress Angel, budak rendah!
-      Ngerti? Ulangi sekarang
+    desc: |-
+      Tulis deskripsi di sini...
+    full_story: |-
+      Tulis cerita di sini...
 _inputs:
   main_cover:
     type: image
@@ -40,8 +30,8 @@ _inputs:
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.user_name }}</title>
     <style>
         :root { --bg: #000000; --text: #e0e0e0; --red: #AF1D20; --card: #161616; }
@@ -52,14 +42,15 @@ _inputs:
 
         .container { max-width: 600px; margin: 0 auto; padding: 25px; }
         
-        /* UKURAN TEKS SESUAI DESKRIPSI (TIDAK KEBESARAN) */
+        /* UKURAN FONT DISAMAKAN DENGAN STYLE WATTPAD */
         .read-content { 
-            line-height: 2.0;    /* Spasi antar baris tetap lega */
-            font-size: 16px;      /* Ukuran sama dengan teks deskripsi sebelumnya */
-            color: #d1d1d1; 
+            line-height: 1.6;      /* Jarak antar baris khas novel */
+            font-size: 18px;       /* Ukuran standar nyaman baca di HP */
+            color: #cccccc;        /* Warna teks sedikit abu agar tidak silau */
             white-space: pre-wrap; 
             text-align: left;
-            word-wrap: break-word; /* Memastikan teks tidak meluber ke kanan */
+            word-wrap: break-word; 
+            letter-spacing: 0.3px;
         }
 
         .cover-box { width: 100%; aspect-ratio: 1/1; background: #333; overflow: hidden; }
@@ -100,8 +91,9 @@ _inputs:
     <div id="page-read">
         <div class="container">
             <button onclick="closeP('page-read')" style="color:#888; background:none; border:none; padding:10px 0;">← Tutup</button>
-            <h2 id="read-title" style="border-bottom: 1px solid var(--red); padding-bottom:10px;"></h2>
+            <h2 id="read-title" style="border-bottom: 1px solid var(--red); padding-bottom:10px; font-size: 22px;"></h2>
             <div id="read-content" class="read-content"></div>
+            <div style="height: 100px;"></div>
         </div>
     </div>
     <script>
@@ -115,7 +107,7 @@ _inputs:
         }
         function openRead() {
             document.getElementById('read-title').innerText = document.getElementById('det-title').innerText;
-            // PERUBAHAN DI SINI: innerText diganti innerHTML supaya <br> dibaca sebagai baris baru
+            // Menggunakan innerHTML agar tag <br> terbaca sebagai baris baru
             document.getElementById('read-content').innerHTML = currentFullStory;
             document.getElementById('page-read').style.display = 'block';
         }
